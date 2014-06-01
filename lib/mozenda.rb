@@ -9,7 +9,7 @@ require "mozenda/model"
 module Mozenda
 
   def self.configuration &block
-    config = Mozenda::Configuration.new
+    config = Mozenda::Configuration.instance
     yield(config) if block
     config
   end

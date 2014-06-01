@@ -1,4 +1,5 @@
 require 'singleton'
+require "faraday"
 
 module Mozenda::Infrastructure
   class Connection
@@ -11,7 +12,7 @@ module Mozenda::Infrastructure
         "WebServiceKey" => config.web_service_key,
         "Service" => config.service
       }
-      @client = Faraday.new(url: config.base_uri, params: default_params)
+      @client = ::Faraday.new(url: config.base_uri, params: default_params)
     end
 
     def get params

@@ -14,13 +14,12 @@ module Mozenda
     ALL_OPTIONS.each do |option_name|
 
       define_method "#{option_name}=" do |option_value|
-        @options[option_name.to_sym] = option_value
+        @options[option_name] = option_value
       end
 
       define_method option_name do
-        option_sym = option_name.to_sym
-        raise Mozenda::ConfigurationException.new("missing required option: #{option}") unless required_option_defined?(option_sym)
-        @options[option_sym]
+        raise Mozenda::ConfigurationException.new("missing required option: #{option_name}") if required_option_undefined?(option_name)
+        options[option_name]
       end
 
     end
@@ -37,11 +36,9 @@ module Mozenda
       @options = DEFAULT_OPTIONS.dup
     end
 
-    def required_option_defined? option_sym
-      REQUIRED_OPTIONS.include?(option_sym) && @options[option_sym].nil?
+    def required_option_undefined? option_sym
+      REQUIRED_OPTIONS.include?(option_sym) && options[option_sym].nil?
     end
 
   end
 end
-
-
