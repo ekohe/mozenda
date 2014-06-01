@@ -5,6 +5,9 @@ module Mozenda
   class ConfigurationException < Exception
   end
 
+  class MissingMethodException < Exception
+  end
+
   class InvalidRequestException < Exception
   end
 

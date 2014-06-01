@@ -1,5 +1,6 @@
 require 'singleton'
 require 'faraday'
+require 'nori'
 
 require "mozenda/version"
 require "mozenda/exception"
