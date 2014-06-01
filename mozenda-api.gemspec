@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mozenda/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "mozenda-api"
-  spec.version       = Mozenda::Api::VERSION
+  spec.name          = "mozenda"
+  spec.version       = Mozenda::VERSION
   spec.authors       = ["Piotr Woloszun"]
   spec.email         = ["piotr.woloszun@gmail.com"]
   spec.description   = %q{Mozenda API gem}
   spec.summary       = %q{Mozenda API gem}
-  spec.homepage      = "https://github.com/pwoloszun/mozenda-api"
+  spec.homepage      = "https://github.com/pwoloszun/mozenda"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
