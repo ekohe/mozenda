@@ -1,4 +1,6 @@
 module Mozenda
-  class Model
+  module Model
   end
 end
+
+require 'mozenda/model/base'
