@@ -1,6 +1,3 @@
-require 'singleton'
-require "faraday"
-
 module Mozenda::Infrastructure
   class Connection
 

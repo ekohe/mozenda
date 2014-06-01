@@ -1,3 +1,6 @@
+require 'singleton'
+require 'faraday'
+
 require "mozenda/version"
 require "mozenda/exception"
 require "mozenda/configuration"
