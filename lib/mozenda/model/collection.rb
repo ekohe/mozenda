@@ -21,5 +21,12 @@ module Mozenda::Model
       request.send!
     end
 
+    def clear
+      request = Mozenda::Request::CollectionClear.new({
+        :collection_id => @id
+      })
+      request.send!
+    end
+
   end
 end
