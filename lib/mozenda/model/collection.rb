@@ -13,5 +13,13 @@ module Mozenda::Model
       request.send!
     end
 
+    def add_items_from_file file_path
+      request = Mozenda::Request::CollectionAddItemBulk.new({
+        :collection_id => @id,
+        :file_path => file_path
+      })
+      request.send!
+    end
+
   end
 end
