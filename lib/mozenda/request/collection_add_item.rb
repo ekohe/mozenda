@@ -14,9 +14,6 @@ module Mozenda::Request
 
     OPERATION = "Collection.AddItem"
     REQUIRED_PARAMS = ["CollectionID", "Operation"].freeze
-    DEFAULT_PARAMS = {
-      "Operation" => OPERATION
-    }.freeze
 
   end
 end

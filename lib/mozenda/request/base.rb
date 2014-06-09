@@ -33,12 +33,8 @@ module Mozenda::Request
       self.class.const_get(:OPERATION)
     end
 
-    def default_params
-      self.class.const_get(:DEFAULT_PARAMS)
-    end
-
     def additional_params
-      @additional_params ||= default_params.dup
+      @additional_params ||= {"Operation" => operation}
     end
 
     def put_additional_param key, value
