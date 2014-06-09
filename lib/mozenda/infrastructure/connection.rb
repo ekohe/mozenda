@@ -23,10 +23,9 @@ module Mozenda::Infrastructure
     private
 
     def send_request type, params
-      response = @client.send(type) do |request|
+      @client.send(type) do |request|
         request.params.merge!(params)
       end
-      response.body
     end
 
   end

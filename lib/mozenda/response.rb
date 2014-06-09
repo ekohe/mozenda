@@ -4,3 +4,4 @@ module Mozenda
 end
 
 require 'mozenda/response/base'
+require 'mozenda/response/collection_add_item'

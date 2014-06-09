@@ -3,12 +3,10 @@ module Mozenda::Request
 
     def initialize options
       super
-      @additional_params = {
-        "CollectionID" => options[:@collection_id]
-      }
+      put_additional_param("CollectionID", options[:collection_id])
       fields = options[:fields] || {}
       fields.each_pair do |name, value|
-        @additional_params["Field.#{name}"] = value
+        put_additional_param("Field.#{name}", value)
       end
     end
 
@@ -19,10 +17,6 @@ module Mozenda::Request
     DEFAULT_PARAMS = {
       "Operation" => OPERATION
     }.freeze
-
-    def additional_params
-      @additional_params ||= DEFAULT_PARAMS.merge(@additional_params)
-    end
 
   end
 end

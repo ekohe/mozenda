@@ -1,4 +1,5 @@
 require 'singleton'
+require 'active_support/core_ext/string/inflections'
 require 'faraday'
 require 'nori'
 

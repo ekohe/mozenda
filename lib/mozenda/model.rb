@@ -4,3 +4,4 @@ module Mozenda
 end
 
 require 'mozenda/model/base'
+require 'mozenda/model/collection'

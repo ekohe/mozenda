@@ -5,19 +5,25 @@ module Mozenda::Request
       @connection = Mozenda::Infrastructure::Connection.instance
     end
 
-    def send! method = :get
+    def send! method = :post
       validate!
       response = @connection.send(method, additional_params)
-      Mozenda::Response::Base.new(response.body)
+      response_class.new(response)
     end
 
     def validate!
       required_params.each do |param_name|
-        raise Mozenda::InvalidRequestException.new("#{operation}: required request param #{param_name} is undefined") if additional_params[param_name].nil?
+        raise Mozenda::InvalidRequestException.new("Request #{operation}: required param '#{param_name}' is undefined") if additional_params[param_name].nil?
       end
     end
 
     private
+
+    def response_class
+      class_name = operation.gsub(/\./, "")
+      full_class_name = "Mozenda::Response::#{class_name}"
+      full_class_name.constantize
+    end
 
     def required_params
       self.class.const_get(:REQUIRED_PARAMS)
@@ -27,8 +33,16 @@ module Mozenda::Request
       self.class.const_get(:OPERATION)
     end
 
+    def default_params
+      self.class.const_get(:DEFAULT_PARAMS)
+    end
+
     def additional_params
-      raise Mozenda::MissingMethodException.new("Abstract method - implement in children class")
+      @additional_params ||= default_params.dup
+    end
+
+    def put_additional_param key, value
+      additional_params[key] = value
     end
 
   end
