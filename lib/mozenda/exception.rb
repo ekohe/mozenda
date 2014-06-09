@@ -13,4 +13,7 @@ module Mozenda
 
   class ResponseTypeException < Exception
   end
+
+  class InvalidFileFormatException < Exception
+  end
 end

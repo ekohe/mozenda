@@ -23,7 +23,7 @@ module Mozenda::Response
     end
 
     def to_h
-      @hash ||= ::Nori.parse(@xml)
+      @hash ||= ::Nori.new.parse(@xml)
     end
 
     def name

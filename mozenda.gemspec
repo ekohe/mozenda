@@ -23,7 +23,8 @@ Gem::Specification.new do |spec|
     "bundler" => "~> 1.3",
     'activesupport' => '~> 4.1.1',
     "faraday" => "~> 0.9.0",
-    "nori" => "~> 2.3.0"
+    "nori" => "~> 2.3.0",
+    'nokogiri' => '~> 1.6.2.1'
   }.each_pair do |name, version|
     spec.add_development_dependency(name, version)
   end

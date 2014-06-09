@@ -12,5 +12,17 @@ module Mozenda::Request
       response_class.new(response)
     end
 
+    def validate!
+      super
+      file = Mozenda::Infrastructure::File.new(@file_path)
+      file.validate!
+    end
+
+    private
+
+    def validate_xml_content!
+      # TODO
+    end
+
   end
 end

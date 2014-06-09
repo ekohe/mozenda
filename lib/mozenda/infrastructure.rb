@@ -4,3 +4,4 @@ module Mozenda
 end
 
 require 'mozenda/infrastructure/connection'
+require 'mozenda/infrastructure/file'
