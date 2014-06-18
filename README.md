@@ -80,7 +80,46 @@ agent.run(optional_params, {
     :job_ended => Mozenda::ReplacementValues::JOB_ENDED
   }
 })
-```  
+```
+  
+To generate XML file for bulk Collection.AddItem:
+```ruby
+data = [
+  {
+    'Name' => "Bob",
+    "Age" => 12
+  },
+  {
+    'Name' => "Ed",
+    "Age" => 99
+  },
+  {
+    'Name' => "Kate",
+    "Age" => 23
+  }
+]
+xml_generator = Mozenda::XmlGenerator.new(data)
+xml = xml_generator.generate
+```
+
+result XML:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<ItemList>
+  <Item>
+    <Name>Bob</Name>
+    <Age>12</Age>
+  </Item>
+  <Item>
+    <Name>Ed</Name>
+    <Age>99</Age>
+  </Item>
+  <Item>
+    <Name>Kate</Name>
+    <Age>23</Age>
+  </Item>
+</ItemList>
+```
 
 ## TODO
 * Implement requests-per-minute limit.
