@@ -8,5 +8,12 @@ module Mozenda::Model
       request.send!
     end
 
+    def self.resume job_id
+      request = Mozenda::Request::JobResume.new({
+        :job_id => job_id
+      })
+      request.send!
+    end
+
   end
 end
