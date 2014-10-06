@@ -125,7 +125,19 @@ To get Job details:
 ```ruby
 job_id = "7E08EB1F-DDA6-4459-BBDA-3F88B4AB7B7C"
 job_get_response = Mozenda::Model::Job.get(job_id)
+job_get_response.job_id # => "7E08EB1F-DDA6-4459-BBDA-3F88B4AB7B7C"
+job_get_response.state # => "Done"
+job_get_response.error? # => false
 ```
+
+To resume Job that is in a Paused or Error state:
+```ruby
+job_id = "7E08EB1F-DDA6-4459-BBDA-3F88B4AB7B7C"
+job_resume_response = Mozenda::Model::Job.resume(job_id)
+job_resume_response.to_xml
+job_resume_response.to_h
+```
+
 
 ## TODO
 * Implement requests-per-minute limit.

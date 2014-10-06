@@ -5,6 +5,14 @@ module Mozenda::Response
       body_hash["JobID"]
     end
 
+    def state
+      body_hash["State"]
+    end
+
+    def error?
+      state.downcase == "error"
+    end
+
     private
 
     NAME = "JobGetResponse"
