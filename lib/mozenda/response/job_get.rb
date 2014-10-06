@@ -2,11 +2,11 @@ module Mozenda::Response
   class JobGet < Mozenda::Response::Base
 
     def job_id
-      body_hash["JobID"]
+      job_data["JobID"]
     end
 
     def state
-      body_hash["State"]
+      job_data["State"]
     end
 
     def error?
@@ -16,6 +16,10 @@ module Mozenda::Response
     private
 
     NAME = "JobGetResponse"
+
+    def job_data
+      body_hash["Job"]
+    end
 
   end
 end
