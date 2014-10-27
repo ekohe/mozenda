@@ -14,5 +14,10 @@ module Mozenda::Model
       request.send!
     end
 
+    def get
+      request = Mozenda::Request::AgentGet.new(:agent_id => @id)
+      request.send!
+    end
+
   end
 end
