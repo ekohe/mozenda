@@ -22,9 +22,12 @@ module Mozenda::Model
     end
 
     def clear
-      request = Mozenda::Request::CollectionClear.new({
-        :collection_id => @id
-      })
+      request = Mozenda::Request::CollectionClear.new(:collection_id => @id)
+      request.send!
+    end
+
+    def publish
+      request = Mozenda::Request::CollectionPublish.new(:collection_id => @id)
       request.send!
     end
 
