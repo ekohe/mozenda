@@ -9,7 +9,6 @@ require 'nori'
 require "mozenda/version"
 require "mozenda/exception"
 require "mozenda/configuration"
-require "mozenda/replacement_values"
 require "mozenda/xml_generator"
 require "mozenda/infrastructure"
 require "mozenda/request"
@@ -23,5 +22,18 @@ module Mozenda
     yield(config) if block
     config
   end
+
+  REPLACEMENT_VALUES = {
+    agent_id: "AgentID",
+    agent_name: "Agent.Name",
+    agent_description: "Agent.Description",
+    agent_domain: "Agent.Domain",
+    job_id: "JobID",
+    job_status: "Job.Status",
+    job_created: "Job.Created",
+    job_ended: "Job.Ended",
+    job_name: "Job.Name",
+    job_description: "Job.Description"
+  }.freeze
 
 end

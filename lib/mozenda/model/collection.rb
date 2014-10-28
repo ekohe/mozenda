@@ -26,8 +26,11 @@ module Mozenda::Model
       request.send!
     end
 
-    def publish
-      request = Mozenda::Request::CollectionPublish.new(:collection_id => @id)
+    def publish job_params = {}
+      request = Mozenda::Request::CollectionPublish.new({
+        :collection_id => @id,
+        :job_params => job_params
+      })
       request.send!
     end
 

@@ -17,6 +17,33 @@ module Mozenda::Request
       end
     end
 
+    protected
+
+    def include_status_url? params
+      status_url = params[:status_url] || ""
+      replacement_values = params[:replacement_values] || []
+      !(status_url.empty? || replacement_values.empty?)
+    end
+
+    def format_status_url params
+      status_url = params[:status_url] || ""
+      replacement_values = params[:replacement_values] || []
+      unless status_url.empty? || replacement_values.empty?
+        uri = URI(status_url)
+        params = URI.decode_www_form(uri.query || [])
+        replacement_values.each do |name|
+          value = Mozenda::REPLACEMENT_VALUES[name]
+          params << [name, value]
+        end
+        uri.query = URI.encode_www_form(params)
+        status_url = uri.to_s
+        Mozenda::REPLACEMENT_VALUES.values.each do |replacement_value|
+          status_url = status_url.gsub(replacement_value, "%#{replacement_value}%")
+        end
+      end
+      status_url
+    end
+
     private
 
     def response_class
