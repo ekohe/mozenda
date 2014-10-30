@@ -50,7 +50,7 @@ collection = Mozenda::Model::Collection.new(collection_id)
 collection.clear
 ```
 
-To run Agent:
+To simple run Agent:
 ```ruby
 agent_id = 1050
 agent = Mozenda::Model::Agent.new(agent_id)
@@ -71,17 +71,60 @@ To run Agent with Job.StatusUrl:
 ```ruby
 agent_id = 1050
 agent = Mozenda::Model::Agent.new(agent_id)
-optional_params = {}
+optional_params = {:foo => 123, :bar => "xyz"}
 agent.run(optional_params, {
   :status_url => "http://localhost:3000/some/path",
-  :replacement_values => {
-    :job_id => Mozenda::ReplacementValues::JOB_ID,
-    :job_status => Mozenda::ReplacementValues::JOB_STATUS,
-    :job_ended => Mozenda::ReplacementValues::JOB_ENDED
-  }
+  :replacement_values => [:job_id, :job_status, :job_ended]
 })
 ```
   
+To get Agent info:
+```ruby
+agent_id = 1050
+agent = Mozenda::Model::Agent.new(agent_id)
+agent_get_response = agent.get
+agent_get_response.to_h
+agent_get_response.to_xml
+```
+
+To simple publish Collection:
+```ruby
+collection_id = 1055
+collection = Mozenda::Model::Collection.new(collection_id)
+collection_publish_response = collection.publish
+collection_publish_response.to_h
+collection_publish_response.to_xml
+```
+
+To publish Collection with some status URL & replacement values:
+```ruby
+collection_id = 1055
+collection = Mozenda::Model::Collection.new(collection_id)
+params = {
+  :status_url => "http://my-app.com/-mozen-on-publish-url?my_param=123&other_param=foo",
+  :replacement_values => [:job_id, :job_status, :job_created, :job_ended]
+}
+collection_publish_response = collection.publish(params)
+collection_publish_response.to_h
+collection_publish_response.to_xml
+```
+
+Replacement values (defined in Mozenda::REPLACEMENT_VALUES) for Collection.Publish and/or Agent.Run:
+```ruby
+Mozenda::REPLACEMENT_VALUES = {
+  agent_id: "AgentID",
+  agent_name: "Agent.Name",
+  agent_description: "Agent.Description",
+  agent_domain: "Agent.Domain",
+  job_id: "JobID",
+  job_status: "Job.Status",
+  job_created: "Job.Created",
+  job_ended: "Job.Ended",
+  job_name: "Job.Name",
+  job_description: "Job.Description"
+}
+```
+
 To generate XML file for bulk Collection.AddItem:
 ```ruby
 data = [
@@ -130,10 +173,26 @@ job_get_response.state # => "Done"
 job_get_response.error? # => false
 ```
 
+To pause running Job:
+```ruby
+job_id = "E656D634-C63F-46D9-AFB5-C9AE1F1F2A9E"
+job_pause_response = Mozenda::Model::Job.pause(job_id)
+job_pause_response.to_xml
+job_resume_response.to_h
+```
+
 To resume Job that is in a Paused or Error state:
 ```ruby
 job_id = "7E08EB1F-DDA6-4459-BBDA-3F88B4AB7B7C"
 job_resume_response = Mozenda::Model::Job.resume(job_id)
+job_resume_response.to_xml
+job_resume_response.to_h
+```
+
+To cancel Job that is in a Paused or Error state:
+```ruby
+job_id = "7E08EB1F-DDA6-4459-BBDA-3F88B4AB7B7C"
+job_cancel_response = Mozenda::Model::Job.cancel(job_id)
 job_resume_response.to_xml
 job_resume_response.to_h
 ```
