@@ -5,6 +5,7 @@ end
 
 require 'mozenda/response/base'
 require 'mozenda/response/agent_get'
+require 'mozenda/response/agent_get_jobs'
 require 'mozenda/response/agent_run'
 require 'mozenda/response/collection_add_item'
 require 'mozenda/response/collection_clear'

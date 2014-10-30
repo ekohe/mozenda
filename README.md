@@ -87,6 +87,16 @@ agent_get_response.to_h
 agent_get_response.to_xml
 ```
 
+To get Agent Jobs list info:
+```ruby
+agent_id = 1050
+agent = Mozenda::Model::Agent.new(agent_id)
+agent_get_jobs_response = agent.get_jobs
+agent_get_jobs_response.to_h
+agent_get_jobs_response.to_xml
+agent_get_jobs_response.jobs_list
+```
+
 To simple publish Collection:
 ```ruby
 collection_id = 1055
