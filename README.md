@@ -56,7 +56,7 @@ agent_id = 1050
 agent = Mozenda::Model::Agent.new(agent_id)
 agent.run
 ```
-  
+
 To run Agent with optional params:
 ```ruby
 agent_id = 1050
@@ -66,7 +66,7 @@ agent.run({
   "my-other-param" => "imba!"
 })
 ```
-  
+
 To run Agent with Job.StatusUrl:
 ```ruby
 agent_id = 1050
@@ -77,7 +77,7 @@ agent.run(optional_params, {
   :replacement_values => [:job_id, :job_status, :job_ended]
 })
 ```
-  
+
 To get Agent info:
 ```ruby
 agent_id = 1050
@@ -94,7 +94,7 @@ agent = Mozenda::Model::Agent.new(agent_id)
 agent_get_jobs_response = agent.get_jobs
 agent_get_jobs_response.to_h
 agent_get_jobs_response.to_xml
-agent_get_jobs_response.jobs_list
+agent_get_jobs_response.job_list
 ```
 
 To simple publish Collection:
