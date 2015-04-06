@@ -30,7 +30,7 @@ module Mozenda::Request
       replacement_values = params[:replacement_values] || []
       unless status_url.empty? || replacement_values.empty?
         uri = URI(status_url)
-        params = URI.decode_www_form(uri.query || [])
+        params = URI.decode_www_form(uri.query || "")
         replacement_values.each do |name|
           value = Mozenda::REPLACEMENT_VALUES[name]
           params << [name, value]
