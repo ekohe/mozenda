@@ -13,7 +13,9 @@ module Mozenda::Infrastructure
       items = item_list["Item"]
       raise InvalidFileFormatException.new("Missing XML tag: 'Item'") if items.nil?
 
-      items unless @root_name == "ItemList"
+      return true if @root_name == "ItemList"
+
+      items
     end
 
     def to_h

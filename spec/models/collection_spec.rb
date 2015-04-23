@@ -9,51 +9,38 @@ module Mozenda::Model
       # Collection.add
       options = { Name: "From Mozenda API", Description: "Mozenda API Description" } 
       response = Mozenda::Model::Collection.new(nil).add(options)
-
-      if response.success?
-        collection_id = response.item_id
-        puts response.to_h
-      else
-        puts response.errors
-      end
+      collection_id = response.item_id if response.success?
 
       # Collection.add_field
-      options = { Field: "Test1", FieldDescription: "Test1 Description" } 
+      options = { Field: "TestID", FieldDescription: "TestID Description" } 
       response = Mozenda::Model::Collection.new(collection_id).add_field(options)
+      puts response.errors unless response.success?
 
-      if response.success?
-        puts response.to_h
+      options   = { Field: "GetTest", FieldDescription: "GetTest Description" } 
+      response  = Mozenda::Model::Collection.new(collection_id).add_field(options)
+      puts response.errors unless response.success?
+
+      # Collection.add_items_from_file
+      path_to_xml_file = File.expand_path('../fixtures/test.xml', File.dirname(__FILE__))
+
+      unless File.exists?( path_to_xml_file )
+        # Collection.add_item
+        options = { "TestID" => 100000, "GetTest" => true } 
+        response = Mozenda::Model::Collection.new(collection_id).add_item(options)
+
+        puts response.errors if response.success?
       else
-        puts response.errors
+        response = Mozenda::Model::Collection.new(collection_id).add_items_from_file(path_to_xml_file)
+        puts response.errors unless response.success?
       end
 
-      # Collection.add_item
-      options = { "Test1" => 'text1' } 
-      response = Mozenda::Model::Collection.new(collection_id).add_item(options)
+      # # Collection.clear
+      # response = Mozenda::Model::Collection.new(collection_id).clear
+      # puts response.errors unless response.success?
 
-      if response.success?
-        puts response.to_h
-      else
-        puts response.errors
-      end
-
-      # Collection.clear
-      response = Mozenda::Model::Collection.new(collection_id).clear
-
-      if response.success?
-        puts response.to_h
-      else
-        puts response.errors
-      end
-
-      # Collection.delete
-      response = Mozenda::Model::Collection.new(collection_id).delete
-
-      if response.success?
-        puts response.to_h
-      else
-        puts response.errors
-      end
+      # # Collection.delete
+      # response = Mozenda::Model::Collection.new(collection_id).delete
+      # puts response.errors unless response.success?
       
     end
   end
