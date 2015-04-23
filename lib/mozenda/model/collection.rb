@@ -5,6 +5,21 @@ module Mozenda::Model
       @id = collection_id
     end
 
+    def add fields
+      request = Mozenda::Request::CollectionAdd.new({
+        :fields => fields
+      })
+      request.send!
+    end
+
+    def add_field fields
+      request = Mozenda::Request::CollectionAddField.new({
+        :collection_id => @id,
+        :fields => fields
+      })
+      request.send!
+    end
+
     def add_item fields
       request = Mozenda::Request::CollectionAddItem.new({
         :collection_id => @id,
@@ -23,6 +38,11 @@ module Mozenda::Model
 
     def clear
       request = Mozenda::Request::CollectionClear.new(:collection_id => @id)
+      request.send!
+    end
+
+    def delete
+      request = Mozenda::Request::CollectionDelete.new(:collection_id => @id)
       request.send!
     end
 

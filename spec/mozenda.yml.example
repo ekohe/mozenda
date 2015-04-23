@@ -1,0 +1,6 @@
+web_service_key: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+debug: true
+aws_access_key_id: XXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key: XXXXXXXXXXXXXXXXXX/XXXXXXXXXXXXX/XXXXXXX
+bucket_name: XXXXXXXXX
+region: xxxxxxxxx

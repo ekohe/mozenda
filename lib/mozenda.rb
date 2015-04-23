@@ -5,6 +5,8 @@ require 'active_support/core_ext/string/inflections'
 require 'faraday'
 require 'nokogiri'
 require 'nori'
+require 'yaml'
+require 'aws-sdk'
 
 require "mozenda/version"
 require "mozenda/exception"
@@ -14,11 +16,18 @@ require "mozenda/infrastructure"
 require "mozenda/request"
 require "mozenda/response"
 require "mozenda/model"
+require "mozenda/aws"
 
 module Mozenda
 
   def self.configuration &block
     config = Mozenda::Configuration.instance
+    yield(config) if block
+    config
+  end
+
+  def self.s3_configuration &block
+    config = Mozenda::Aws::Configuration.instance
     yield(config) if block
     config
   end

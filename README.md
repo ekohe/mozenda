@@ -22,6 +22,14 @@ Or install it yourself as:
 ```ruby
 Mozenda.configuration do |config|
   config.web_service_key = "your-mozenda-web-service-key"
+  config.debug = false
+end
+
+Mozenda.s3_configuration do |config|
+  config.access_key = "aws-access-key"
+  config.secret_key = 'aws-secret-key'
+  config.bucket = 'aws-bucket-name'
+  config.region = 'aws-region'
 end
 ```
 

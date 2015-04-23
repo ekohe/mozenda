@@ -22,6 +22,11 @@ module Mozenda::Response
       @xml
     end
 
+    # TODO
+    def errors
+      @hash
+    end
+
     def to_h
       @hash ||= ::Nori.new.parse(@xml)
     end

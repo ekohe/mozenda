@@ -16,3 +16,9 @@ test/tmp
 test/version_tmp
 tmp
 .idea
+
+spec/mozenda.yml
+spec/fixtures/mozenda_api
+spec/fixtures/test.xml
+Images*
+*.XML

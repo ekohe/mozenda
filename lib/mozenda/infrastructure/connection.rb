@@ -3,6 +3,8 @@ module Mozenda::Infrastructure
 
     include ::Singleton
 
+    attr_reader :debug
+
     def initialize
       config = Mozenda::Configuration.instance
       default_params = {
@@ -15,6 +17,8 @@ module Mozenda::Infrastructure
         builder.request :url_encoded
         builder.adapter :net_http
       end
+      
+      @debug = config.debug
     end
 
     def get params
@@ -38,6 +42,13 @@ module Mozenda::Infrastructure
     private
 
     def send_request type, params
+      if debug
+        puts "-"*110
+        puts "--- #{@client.build_url} ---"
+        puts "--- #{params} ---"
+        puts "-"*110
+      end
+      
       @client.send(type) do |request|
         request.params.merge!(params)
       end
