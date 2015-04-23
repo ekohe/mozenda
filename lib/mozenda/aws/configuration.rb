@@ -3,7 +3,7 @@ module Mozenda::Aws
 
     include ::Singleton
 
-    REQUIRED_OPTIONS = [:access_key, :secret_key, :bucket, :region].freeze
+    REQUIRED_OPTIONS = [:access_key, :secret_key, :bucket, :region, :file_dir].freeze
 
     attr_reader :options
 

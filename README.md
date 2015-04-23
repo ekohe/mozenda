@@ -6,15 +6,11 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'mozenda'
+    gem 'mozenda', github: 'encoreshao/mozenda'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install mozenda
 
 ## Usage
 
@@ -28,8 +24,21 @@ end
 Mozenda.s3_configuration do |config|
   config.access_key = "aws-access-key"
   config.secret_key = 'aws-secret-key'
-  config.bucket = 'aws-bucket-name'
-  config.region = 'aws-region'
+  config.bucket     = 'aws-bucket-name'
+  config.region     = 'aws-region'
+  config.file_dir   = 'store-file-dir'
+end
+```
+
+Download files from AWS, read & parse the file:
+```ruby
+aws = Mozenda::Aws::Request.new
+aws.file_names.join(', ') # Get bucket's all object keys
+aws.download!             # Download all object files
+items = aws.items_of(key, "AllImages") # bucket object key,  "AllImages" is root node name
+
+items.each |item|
+  fields
 end
 ```
 

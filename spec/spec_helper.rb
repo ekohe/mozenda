@@ -17,6 +17,7 @@ Mozenda.s3_configuration do |config|
   config.secret_key = yaml["aws_secret_access_key"]
   config.bucket     = yaml["bucket_name"]
   config.region     = yaml["region"]
+  config.file_dir   = yaml["file_dir"]
 end
 
 RSpec.configure do |c|

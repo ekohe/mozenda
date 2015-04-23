@@ -16,8 +16,8 @@ module Mozenda::Aws
     it 'showing items data' do
       puts "showing items data"
 
-      file_name = aws.file_names[3]
-      puts aws.items_of(file_name, "AllItems")
+      # file_name = aws.file_names[3]
+      # puts aws.items_of(file_name, "AllItems")
 
       puts "showing images data"
       file_name = aws.file_names[2]

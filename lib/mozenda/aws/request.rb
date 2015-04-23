@@ -2,17 +2,20 @@
 
 module Mozenda::Aws
   class Request
-    attr_accessor :file_names
+    attr_accessor :file_names, :bucket_name, :file_dir
 
     def initialize
-      @config = Mozenda::Aws::Configuration.instance
+      config = Mozenda::Aws::Configuration.instance
 
       @s3 = Aws::S3::Resource.new({
-        region: @config.region, 
-        credentials: Aws::Credentials.new( @config.access_key, @config.secret_key ) 
+        region: config.region, 
+        credentials: Aws::Credentials.new( config.access_key, config.secret_key ) 
       })
 
-      @bucket = @s3.bucket( @config.bucket )
+      @bucket_name = config.bucket
+      @file_dir    = config.file_dir
+
+      @bucket = @s3.bucket( config.bucket )
 
       raise 'The specified bucket does not exist' unless @bucket.exists?
 
@@ -24,13 +27,13 @@ module Mozenda::Aws
     end
 
     def create_object!(options = {})
-      options = options.merge({ bucket: @config.bucket })
+      options = options.merge({ bucket: bucket_name })
 
       @s3.client.put_object( options )
     end
 
     def delete_object!(options = {})
-      options = options.merge({ bucket: @config.bucket })
+      options = options.merge({ bucket: bucket_name })
 
       @s3.client.delete_object( options ) 
     end
@@ -55,10 +58,10 @@ module Mozenda::Aws
     end
 
     private
-    def to_write!(f_name, obj)
-      file_path = get_file_path(f_name)
+    def to_write!(file_name, obj)
+      file_path = full_file_path(file_name)
 
-      File.open(f_name, 'wb') do |file|
+      File.open(file_path, 'wb') do |file|
         obj.get do |chunk|
           file.write(chunk)
         end 
@@ -74,17 +77,17 @@ module Mozenda::Aws
     end
 
     def get_file_path(file_name)
-      file_path = File.join(File.expand_path('../../../../', __FILE__), file_name)
+      return nil unless File.exists?( full_file_path(file_name) )
 
-      return nil unless File.exists?(file_path)
-
-      file_path
+      full_file_path(file_name)
     end
 
     def delete_file(file_name)
-      unless (full_path = get_file_path(file_name)).nil?
-        File.delete(full_path)
-      end
+      File.delete(full_path) unless (full_path = get_file_path(file_name)).nil?
+    end
+
+    def full_file_path(file_name)
+      "#{file_dir}/#{file_name}"
     end
 
   end
