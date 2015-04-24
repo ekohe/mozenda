@@ -24,6 +24,8 @@ module Mozenda::Response
 
     # TODO
     def errors
+      return {} if success?
+
       @hash
     end
 
