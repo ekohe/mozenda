@@ -22,20 +22,24 @@ module Mozenda::Aws
       @file_names = @bucket.objects.map { |o| o.key }
     end
 
-    def download!
-      @bucket.objects.each do |obj| to_write!(obj.key, obj) end
+    def download_all(key)
+      @bucket.objects.each do |obj| download(obj) end
+    end
+
+    def download_with_key(key)
+      download( get_object( {key: key} ) )
+    end
+
+    def get_object(options = {})
+      @s3.client.get_object( combine_options(options) ) 
     end
 
     def create_object!(options = {})
-      options = options.merge({ bucket: bucket_name })
-
-      @s3.client.put_object( options )
+      @s3.client.put_object( combine_options(options) )
     end
 
     def delete_object!(options = {})
-      options = options.merge({ bucket: bucket_name })
-
-      @s3.client.delete_object( options ) 
+      @s3.client.delete_object( combine_options(options) ) 
     end
 
     def zip_paths
@@ -58,6 +62,14 @@ module Mozenda::Aws
     end
 
     private
+    def combine_options(options)
+      options.merge({ bucket: bucket_name })
+    end
+
+    def download(obj)
+      to_write!(obj.key, obj)
+    end
+
     def to_write!(file_name, obj)
       file_path = full_file_path(file_name)
 
