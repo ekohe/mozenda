@@ -22,12 +22,10 @@ module Mozenda::Aws
       @file_names = @bucket.objects.map { |o| o.key }
     end
 
-    def download_all(key)
-      @bucket.objects.each do |obj| download(obj) end
-    end
-
-    def download_with_key(key)
-      download( get_object( {key: key} ) )
+    def download(keys=[])
+      @bucket.objects.each do |obj| 
+        to_write!(obj.key, obj) if keys.include?(obj.key)
+      end
     end
 
     def get_object(options = {})
@@ -64,10 +62,6 @@ module Mozenda::Aws
     private
     def combine_options(options)
       options.merge({ bucket: bucket_name })
-    end
-
-    def download(obj)
-      to_write!(obj.key, obj)
     end
 
     def to_write!(file_name, obj)
